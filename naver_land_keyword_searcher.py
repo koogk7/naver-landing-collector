@@ -24,6 +24,7 @@ class NaverLandKeywordSearcher:
             url = f'https://new.land.naver.com/api/autocomplete?keyword={encoded_keyword}'
             
             response = requests.get(url, headers=self.headers)
+            print(response.status_code)
             
             if response.status_code == 200:
                 # HTML 태그 제거하여 plain text 리스트 반환
@@ -33,6 +34,7 @@ class NaverLandKeywordSearcher:
                     # HTML 태그 제거
                     clean_text = re.sub(r'<[^>]+>', '', result)
                     clean_results.append(clean_text)
+                print(f'검색결과={clean_results}')
                 return clean_results
             else:
                 print(f"검색 실패: {response.status_code}")

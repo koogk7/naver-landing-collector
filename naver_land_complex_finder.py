@@ -43,28 +43,6 @@ class NaverLandComplexFinder:
             print(f"에러 발생: {e}")
             return None
 
-    def verify_complex_id(self, complex_id):
-        """
-        찾은 단지 ID가 유효한지 확인합니다.
-        
-        Args:
-            complex_id (str): 확인할 단지 ID
-            
-        Returns:
-            bool: 유효성 여부
-        """
-        try:
-            verify_url = f'https://new.land.naver.com/api/complexes/{complex_id}'
-            response = requests.get(
-                verify_url,
-                headers=self.headers
-            )
-            return response.status_code == 200
-            
-        except Exception as e:
-            print(f"검증 중 에러 발생: {e}")
-            return False
-
 def main():
     finder = NaverLandComplexFinder()
     
@@ -79,10 +57,6 @@ def main():
         
         if complex_id:
             print(f"단지 ID: {complex_id}")
-            if finder.verify_complex_id(complex_id):
-                print("✅ 유효한 단지 ID입니다.")
-            else:
-                print("❌ 유효하지 않은 단지 ID입니다.")
         else:
             print("단지 ID를 찾을 수 없습니다.")
 
