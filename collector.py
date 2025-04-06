@@ -4,6 +4,8 @@ from datetime import datetime
 import time
 import pandas as pd
 
+from naver_land_complex_finder import NaverLandComplexFinder
+
 class NaverLandCrawler:
     def __init__(self):
         # 기본 헤더 설정 - 최소한의 필수 헤더만 유지
@@ -141,7 +143,11 @@ def main():
         crawler = NaverLandCrawler()
         
         # 아파트 단지 번호 입력
-        complex_no = input("아파트 단지 번호를 입력하세요 (예: 824는 상봉 한신아파트): ")
+        finder = NaverLandComplexFinder()
+        input_value = input("아파트 이름을 입력하세요 (예: '중화동 한신'): ")
+        complex_no = finder.find_complex_id(input_value)
+        if not complex_no:
+            raise ValueError("아파트 단지를 찾을 수 없습니다. 다시 시도해주세요.")
         
         # 데이터 수집
         print(f"\n{complex_no} 단지의 매물 정보를 수집중입니다...")
